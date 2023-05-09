@@ -27,15 +27,19 @@ const initializeDbAndServer = async () => {
 initializeDbAndServer();
 
 const convertMovieDbToResponseObject = (dbObject) => {
-  movieId: dbObject.movie_id;
-  directorId: dbObject.director_id;
-  movieName: dbObject.movie_name;
-  leadActor: dbObject.lead_actor;
+  return {
+    movieId: dbObject.movie_id,
+    directorId: dbObject.director_id,
+    movieName: dbObject.movie_name,
+    leadActor: dbObject.lead_actor,
+  };
 };
 
 const directorDbToResponseObject = (dbObject) => {
-  directorId: dbObject.director_id;
-  director_name: dbObject.director_name;
+  return {
+    directorId: dbObject.director_id,
+    director_name: dbObject.director_name,
+  };
 };
 
 app.get("/movies/", async (request, response) => {
@@ -65,6 +69,18 @@ app.get("/movies/:movieId/", async (request, response) => {
   WHERE movie_id = ${movieId};`;
   const movieK = await db.get(idBasedMovie);
   response.send(convertMovieDbToResponseObject(movieK));
+});
+
+app.put("/movies/:movieId/", async (request, response) => {
+  const { directorId, movieName, leadActor } = request.body;
+  const { movieId } = request.params;
+  const updateQuery = `
+  UPDATE movie SET director_id = ${directorId},
+  movie_name = ${movieName},
+  lead_actor = '${leadActor}'
+  WHERE movie_id = '${movieId}'; `;
+  const updateMovie = await db.run(updateQuery);
+  response.send("Movie Details Updated");
 });
 
 module.exports = app;

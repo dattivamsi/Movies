@@ -4,4 +4,14 @@ GET http://localhost:3000/movies/
 POST http://localhost:3000/movies/
 
 ###
-GET http://localhost:3000/movies/12/
+GET http://localhost:3000/movies/46
+
+
+###
+PUT http://localhost:3000/movies/46/
+
+{
+    "directorId":3,
+    "movieName":"Captin America: The First Avenger",
+    "leadActor": "Chris Evans"
+}
