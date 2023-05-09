@@ -15,3 +15,14 @@ PUT http://localhost:3000/movies/46/
     "movieName":"Captin America: The First Avenger",
     "leadActor": "Chris Evans"
 }
+
+###
+
+DELETE http://localhost:3000/movies/51/
+
+####
+GET http://localhost:3000/directors/
+
+
+###
+GET http://localhost:3000/directors/1/movies/
